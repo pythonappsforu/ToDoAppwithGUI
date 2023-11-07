@@ -7,7 +7,7 @@ sg.theme('GreenMono')
 clock = sg.Text(key='clock')
 todo_label = sg.Text('Type in a todo:')
 todo_input= sg.InputText(tooltip='Enter todo',key='todo_input')
-add_button = sg.Button('Add',size=10)
+add_button = sg.Button(key='Add',size=5,image_source='images/add.png',tooltip='Add Todo')
 todo_listbox = sg.Listbox(values=tf.get_todos(),key="todos_listbox",
                           size=[45,10],enable_events=True)
 edit_button = sg.Button('Edit')
@@ -29,10 +29,13 @@ while True:
     match event:
         case 'Add':
             todos_list = tf.get_todos()
-            new_todo = values['todo_input'] + "\n"
-            todos_list.append(new_todo)
-            tf.write_todos(todos_list)
-            window['todos_listbox'].update(values=todos_list)
+            if values['todo_input'] == '':
+                sg.popup('please enter a todo')
+            else:
+                new_todo = values['todo_input'] + "\n"
+                todos_list.append(new_todo)
+                tf.write_todos(todos_list)
+                window['todos_listbox'].update(values=todos_list)
         case sg.WIN_CLOSED:
             break
         case 'Edit':
