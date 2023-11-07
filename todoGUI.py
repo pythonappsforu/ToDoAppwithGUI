@@ -1,18 +1,25 @@
 import PySimpleGUI as sg
 import todo_functions as tf
 import time
+import os
 
 sg.theme('GreenMono')
+
+if not os.path.exists('todos.txt'):
+    with open('todos.txt', 'w') as file:
+        pass
 
 clock = sg.Text(key='clock')
 todo_label = sg.Text('Type in a todo:')
 todo_input= sg.InputText(tooltip='Enter todo',key='todo_input')
-add_button = sg.Button(key='Add',size=5,image_source='images/add.png',tooltip='Add Todo')
+add_button = sg.Button('Add',key='Add',size=10)
+# add_button = sg.Button(key='Add',size=5,image_source='images/add.png',tooltip='Add Todo')
 todo_listbox = sg.Listbox(values=tf.get_todos(),key="todos_listbox",
                           size=[45,10],enable_events=True)
 edit_button = sg.Button('Edit')
 complete_button = sg.Button('Complete')
 exit_button = sg.Button('Exit')
+
 
 
 window = sg.Window(title="My ToDos",
